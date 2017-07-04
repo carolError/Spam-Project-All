@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+    <head>
+
+
+        <title>Spam Project</title>
+        <meta charset="utf-8">
+
+    <link href='http://fonts.googleapis.com/css?family=Armata' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+   
+    <script type="text/javascript" src="js/popUpScript.js"></script>
+    
+
+
+    <script src="js/three.min.js"></script>
+    <script src="js/ColladaLoader.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <style>
+        a.issue {
+            position: absolute;
+            top: 60%;
+            width: 20%;
+            right: 40%;
+            /*text-align: center;*/
+            font-size: 2.1 em;
+            font-family: "Armata";
+            outline: 0;
+            color: 00ff00;
+        }
+        a { color: blue; }
+        a:hover { color: red; }
+
+        div.info {
+            top: 40%; 
+            width: 100%; 
+            color: #0000ff; 
+            text-align: center; 
+            font-size: 2.1 em; 
+            font-family: Armata; 
+            position: absolute; 
+        }
+    </style>
+        
+        
+    <script>
+        function changeLinkColor(){
+            document.getElementById('issuelink').style.color='#ff0000'
+        }
+    </script>
+
+    </head>
+    <body  style="margin: 0; padding: 0; overflow: hidden;">
+        <div class="container">
+            <div class="info">
+                SPAM PROJECT
+            </div>
+            <a  class='issue' id="issuelink" href='http://www.lab4games.net/zz85/blog' target='blank' onclick="changeLinkColor()">ISSUE I</a>
+        </div>
+
+		
+
+            
+
+       
+
+
+        <script>
+            
+            var WIDTH = window.innerWidth;
+			var HEIGHT = window.innerHeight;
+           
+            var scene, camera, renderer;
+            
+            var loaderCaro;
+
+            var models = [];
+            
+
+
+            var clock = new THREE.Clock();
+            var textGeo;
+            var tick = 0;
+      
+
+            var keyarr = false;
+   
+
+            
+			
+            
+            init();
+            animate();
+            
+ 
+            
+            
+            function init(font) {
+                scene = new THREE.Scene();
+                var WIDTH = window.innerWidth,
+                    HEIGHT = window.innerHeight;
+
+
+                renderer = new THREE.WebGLRenderer({antialias:true});
+                renderer.setSize(WIDTH, HEIGHT);
+                renderer.setPixelRatio( window.devicePixelRatio );
+                document.body.appendChild(renderer.domElement);
+                
+                camera = new THREE.PerspectiveCamera(50, WIDTH / HEIGHT, 0.1, 10000000);
+                camera.position.set(0,10,5);
+                camera.up = new THREE.Vector3(0,1,0);
+                camera.lookAt(new THREE.Vector3(0,0,0)); 
+                scene.add(camera);
+                
+                window.addEventListener('resize', function() {
+                    var WIDTH = window.innerWidth,
+                    HEIGHT = window.innerHeight;
+                    renderer.setSize(WIDTH, HEIGHT);
+                    camera.aspect = WIDTH / HEIGHT;
+                    camera.updateProjectionMatrix();
+                });
+
+
+
+
+	       
+
+
+
+                
+//LIGHTS
+            var lightJonUriarte =  new THREE.SpotLight( 0xffffff,0.5 );
+            lightJonUriarte.position.set(0,100,0);
+            lightJonUriarte.target.position.set(-250,0,-200); 
+            scene.add(lightJonUriarte); 
+            scene.add( lightJonUriarte.target );        
+
+
+                       
+ //
+
+
+            var loader = new THREE.FontLoader();
+            loader.load( 'data/helvetiker_regular.typeface.json', function ( font ) {
+
+//TEXTS
+				var textGeoAntonio = new THREE.TextGeometry( "Antonio Roberts", {
+
+                font: font,
+
+                size: 10,
+                height: 1,
+                curveSegments: 12,
+                } );
+
+
+///TEXT MESHES
+
+                var textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff});
+
+                var meshAntonio = new THREE.Mesh( textGeoAntonio, textMaterial );
+                meshAntonio.position.x = -100;
+                meshAntonio.position.z = -100;
+                //gridAntonio.add( meshAntonio );
+
+               
+
+			} );
+
+            ///END-TEXT---------------------------------------------------
+
+            
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+
+                     
+//CAROLINA ROMANO  
+
+            var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+            var material = new THREE.MeshBasicMaterial( { color: 0x00ff00,  wireframe: true } );
+            var cube = new THREE.Mesh( geometry, material );
+            scene.add( cube );
+
+            loaderCaro = new THREE.JSONLoader();
+            loaderCaro.load ("data/hand.json", addModel_caro);
+
+            function addModel_caro( geometry){
+                var material_hand = new THREE.MeshBasicMaterial({ color:0xff0000, wireframe: true });
+                
+                
+                var model = new THREE.Mesh (geometry, material_hand);
+                model.scale.set (10,10,10);
+                console.log(model);
+                scene.add(model);
+
+                
+  
+            }  
+ 
+   
+
+
+		    
+            
+
+            }
+            
+    var prevTime = Date.now();
+            
+            function animate() {
+
+                
+
+		
+
+			    if (tick < 0) tick = 0;
+               
+			    
+                camera.position.clampLength(0, 1500);
+
+                renderer.render(scene, camera);
+                controls.update();
+        
+    
+               // window.onload = init;
+            }
+
+            
+    
+
+
+
+
+            
+        </script>
+    </body>
+</html> 
