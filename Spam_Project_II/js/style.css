@@ -7,7 +7,7 @@ div.popup {
     border: 3px solid #0000ff;
     border-radius: 3px 3px 3px 3px;
     padding: 20px 0px 20px 20px;
-    color: #0000ff;
+    /*color: #0000ff;*/
     display: none;
     font-size: 14px;
     line-height: 1.8em;
@@ -28,6 +28,7 @@ div#popup_content {
     height:300px
     
 }
+
 
 div#popup_container{
     padding-right: 40px;

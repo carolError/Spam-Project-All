@@ -21,50 +21,57 @@
    				right:0;*/
 			}
 			
-			div.credits{
-				font-size: 0.8em;
-                color: #555500;
-			}
+		div.credits{
+            font-size: 0.8em;
+            color: #555500;
+        }
 			
-			div a.livebox{
-				
-				color: #ff0000;
-				text-decoration: underline;
-			}
+        div a.livebox{
+            
+            color: #ff0000;
+            text-decoration: underline;
+        }
+
+        a.toHome{
+            font-size: 0.8em;
+            color: #555500;
+            text-decoration: underline;
+
+        }
 			
-			div.info-wrapper{
-				position: absolute;
-				margin: 1em 0em 0em 1.5em;
-				display: block;
-				top: 0px;
-				width:500px;
-				height:500px;
-				/*background:rgba(0,0,0,0.03)*/
-			}
+        div.info-wrapper{
+            position: absolute;
+            margin: 1em 0em 0em 1.5em;
+            display: block;
+            top: 0px;
+            width:500px;
+            height:500px;
+            /*background:rgba(0,0,0,0.03)*/
+        }
 
 
-			div.info {
-			
-				/*position: absolute;*/
-				color: #0000ff;
-				font-size: 0.8em;
-				
-				/*
-				top: 10px;
-				right: 10px;
-				bottom: 10px;
-				width: 250px;
-				/**/	
-			}
+        div.info {
+        
+            /*position: absolute;*/
+            color: #0000ff;
+            font-size: 0.8em;
+            
+            /*
+            top: 10px;
+            right: 10px;
+            bottom: 10px;
+            width: 250px;
+            /**/	
+        }
 
-            A:visited {
-					color: #0000ff;
-			}
-			A:link { 
-					color: #0000ff;
-					text-decoration: none; 
-					font-weight: normal ;
-			}
+        #Popup8{
+            color: #0000ff;
+            font-weight: normal ;
+            text-decoration: none;
+        }
+
+
+
 			
 			
 			div.info2 a, .button { font-family: 'Armata', sans-serif;color: #0000ff; font-weight: bold; /*text-decoration: underline*/; cursor: pointer ; line-height: 180%;}
@@ -115,16 +122,24 @@
 
         <script src="js/Animation.js"></script>
 		<script src="js/AnimationHandler.js"></script>
+        <script>
+            function changeLinkColor(id){
+                document.getElementById(id).style.color='#0000ff';
+            }
+        </script>
+
     </head>
+
     <body style="margin: 0; padding: 0; overflow: hidden">
         <div class=info-wrapper>
 		
-		<div class="info2"><a href="#" class="topopup" id="Popup8">SPAM PROJECT</a><br /></div>
+		<div class="info2"><a href="#" class="topopup" id="Popup8" onclick="changeLinkColor('Popup8')">SPAM PROJECT</a><br /></div>
 		<!-- <div id="tema">'I forgot the password and my Doppelgänger will destroy me'<br /><br /></div> -->
 		</div>
         <div id="toPopup8" class="popup">
         <div class="close"></div>
 		<div id="popup_header"> 
+            <p align="center"><a href= "/nuevo"  class="toHome" id="toHomeLink" onclick="changeLinkColor('toHomeLink')" >home spam project</a></p>
             <div class="info2"><p align="center">ISSUE_02:  </p></div>
             <div id="tema"><p align="center">'Survival of the Twittest'</p></div>
         </div>
@@ -159,7 +174,7 @@
                 <p align="center">    <a href= "http://www.srcxor.org/blog/"   class="livebox" >Mark Klink</a></p> 
                 <p align="center">    <a href= "http://www.hellocatfood.com/"  class="livebox" >Antonio Roberts</a></p> 
                 <p align="center">    <a href= "http://carolinaromano.net/"    class="livebox" >Carolina Romano</a></p>
-                <p align="center">    <a href= "http://www.jonuriarte.es/"     class="livebox" >Jon Uriarte</a></p> 
+                <p align="center">    <a href= "http://www.jonuriarte.net"     class="livebox" >Jon Uriarte</a></p> 
 		        </div></div>
 		        </div>
 	    </div> 
