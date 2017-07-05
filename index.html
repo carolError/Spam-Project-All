@@ -180,7 +180,7 @@
                     model = new THREE.Mesh (geometry, material);
                     model.geometry.applyMatrix( new THREE.Matrix4().makeTranslation(0, 0, -5 ) );
                     model.position.set(0,1.5,-1);
-                    model.rotation.set(THREE.Math.degToRad(40),THREE.Math.degToRad(180),THREE.Math.degToRad(0));
+                    model.rotation.set(THREE.Math.degToRad(55),THREE.Math.degToRad(180),THREE.Math.degToRad(15));
                     model.scale.set (0.3,0.3,0.3);
                     model.verticesNeedUpdate = true;
                     //console.log(model);
@@ -200,8 +200,8 @@
                 requestAnimationFrame( animate );
                 
                 if (model){
-                    angle = Math.acos( b / c ) * 0.6;
-                    handAngle = map(mouseX, I1posX, I2posX, -angle, angle);
+                    angle = Math.acos( b / c ) * 0.7;
+                    handAngle = map(mouseX, I1posX, I2posX, -angle*1.2, angle);
 
                     model.rotation.y = model.rotation.y * 0.9 + (handAngle + THREE.Math.degToRad(180)) * 0.1;
                 }
