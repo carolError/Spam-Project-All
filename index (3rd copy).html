@@ -6,80 +6,79 @@
         <title>Spam Project</title>
         <meta charset="utf-8">
 
-        <link href='http://fonts.googleapis.com/css?family=Armata' rel='stylesheet' type='text/css'>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="js/popUpScript.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Armata' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/popUpScript.js"></script>
 
-        <script src="js/three.min.js"></script>
+       <script src="js/three.min.js"></script>
         <script src="js/ColladaLoader.js"></script>
         <script src="js/MorphAnimMesh.js"></script>
         <script src="js/MorphAnimation.js"></script>
         <script src="js/OrbitControls.js"></script>
         <script src="js/Animation.js"></script>
-        <script src="js/AnimationHandler.js"></script>
+		<script src="js/AnimationHandler.js"></script>
+    <style>
+        div.mouse {
+            width: 220px;
+            height: 170px;
+            margin: 10px 50px 10px 10px;
+            background: yellow;
+            border: 2px groove;
+            float: right;
+        }
+        a.issueI {
+            position: absolute;
+            top: 80%;
+            width: 100%; 
+            left: 10%;
+            /*text-align: center;*/
+            font-size: 2.1 em;
+            font-family: "Armata";
+            outline: 0;
+            color: 00ff00;
+        }
 
-        <style>
+        a.issueII {
+            position: absolute;
+            top: 80%;
+            width: 100%; 
+            left: 80%;
+            /*text-align: center;*/
+            font-size: 2.1 em;
+            font-family: "Armata";
+            outline: 0;
+            color: 00ff00;
+        }
 
-            a.issueI {
-                position: absolute;
-                top: 80%;
-                width: 100%; 
-                left: 10%;
-                /*text-align: center;*/
-                font-size: 2.1 em;
-                font-family: "Armata";
-                outline: 0;
-                color: 00ff00;
-            }
+        a { color: blue; }
+        a:hover { color: red; }
 
-            a.issueII {
-                position: absolute;
-                top: 80%;
-                width: 100%; 
-                left: 80%;
-                /*text-align: center;*/
-                font-size: 2.1 em;
-                font-family: "Armata";
-                outline: 0;
-                color: 00ff00;
-            }
+        div.info {
+            top: 20%; 
+            width: 100%; 
+            color: #0000ff; 
+            text-align: center; 
+            font-size: 2.1 em; 
+            font-family: Armata; 
+            position: absolute; 
+        }
 
-            a { color: blue; }
-            a:hover { color: red; }
+        span {
+            display: block;
+        }
+    </style>
+        
+        
+    <script>
+        function changeLinkColor(id){
+            document.getElementById(id).style.color='#ff0000'
+        }
+    </script>
 
-            div.info {
-                top: 20%; 
-                width: 100%; 
-                color: #0000ff; 
-                text-align: center; 
-                font-size: 2.1 em; 
-                font-family: Armata; 
-                position: absolute; 
-            }
-
-        </style>
-            
-            
-        <script>
-
-            var mouseX=0, mouseY=0;
-
-            function changeLinkColor(id){
-                document.getElementById(id).style.color='#ff0000'
-            }
-
-            function storeMouse(event) {
-                mouseX = event.clientX;
-                mouseY = event.clientY;
-            }
-
-        </script>
+  
 
     </head>
-
-
-
     <body  style="margin: 0; padding: 0; overflow: hidden;">
         <div class="container">
             <div class="info">
@@ -89,6 +88,20 @@
             <a  class='issueII' id="issuelinkII" href='http://www.lab4games.net/zz85/blog' target='blank' onclick="changeLinkColor('issuelinkII')">ISSUE II</a>
             
         </div>
+        <p>
+            <span>Move the mouse over the div.</span>
+            <span>&nbsp;</span>
+        </p>
+        <div class="mouse"></div>
+        <script>
+            $( "div.mouse" ).mousemove(function( event ) {
+                var pageCoords = "( " + event.pageX + ", " + event.pageY + " )";
+                var clientCoords = "( " + event.clientX + ", " + event.clientY + " )";
+                $( "span:first" ).text( "( event.pageX, event.pageY ) : " + pageCoords );
+                $( "span:last" ).text( "( event.clientX, event.clientY ) : " + clientCoords );
+            });
+        </script>
+
 
 
         <script>
@@ -107,8 +120,6 @@
             var clock = new THREE.Clock();
             var textGeo;
             var tick = 0;
-            var handAngle;
-            var model;
     
 
             
@@ -147,10 +158,7 @@
                 lightJonUriarte.position.set(0,100,0);
                 lightJonUriarte.target.position.set(0,0,0); 
                 scene.add(lightJonUriarte); 
-                scene.add( lightJonUriarte.target ); 
-
-                
-                window.onmousemove = storeMouse;
+                scene.add( lightJonUriarte.target );    
 
             
                 //controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -170,13 +178,11 @@
                 function addModel_caro( geometry, materials){
                     //var material = materials[ 0 ];
                     var material_hand = new THREE.MeshBasicMaterial({ color:0xff0000, wireframe:true });
-                    var material = new THREE.MeshNormalMaterial();
-                    model = new THREE.Mesh (geometry, material);
-                    model.geometry.applyMatrix( new THREE.Matrix4().makeTranslation(0, 0, -5 ) );
-                    model.position.set(-0.3,1,-1);
+                    
+                    
+                    var model = new THREE.Mesh (geometry, material_hand);
                     model.scale.set (0.3,0.3,0.3);
-                    model.verticesNeedUpdate = true;
-                    //console.log(model);
+                    console.log(model);
                     scene.add(model);
 
                 }  
@@ -188,14 +194,9 @@
                 requestAnimationFrame( animate );
 			    
                 //camera.position.clampLength(0, 1500);
-                handAngle =(mouseX-0)*((-70-40)/(window.innerWidth-0))+40;
-                handAngleDeg= THREE.Math.degToRad(handAngle);
-                model.rotation.set(THREE.Math.degToRad(-90),handAngleDeg,-25*Math.PI/180);
-                //console.log(mouseX);
-                //console.log(handAngle);
+
                 renderer.render(scene, camera);
                 //controls.update();
-                
         
     
              
