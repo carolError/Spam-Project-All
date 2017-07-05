@@ -160,11 +160,13 @@
                 camera.up = new THREE.Vector3(0,1,0);
                 scene.add(camera);
 
-                var lightJonUriarte =  new THREE.SpotLight( 0xffffff,1 );
-                lightJonUriarte.position.set(0,0,0);
-                lightJonUriarte.target.position.set(0,0,0); 
-                scene.add(lightJonUriarte); 
-                scene.add( lightJonUriarte.target ); 
+                /*
+                var light =  new THREE.SpotLight( 0xffffff,1 );
+                light.position.set(0,0,0);
+                light.target.position.set(0,0,0); 
+                scene.add(light); 
+                scene.add( light.target );
+                */ 
 
                 
                 window.onmousemove = storeMouse;
