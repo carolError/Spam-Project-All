@@ -147,7 +147,7 @@
 
                             backgroundTexture.wrapS = backgroundTexture.wrapT = THREE.RepeatWrapping;
                             backgroundTexture.offset.set( 0, 0 );
-                            backgroundTexture.repeat.set( 20, 10 );
+                            backgroundTexture.repeat.set( WIDTH/(WIDTH/10), HEIGHT/(HEIGHT/10) );
 
                             bg = new THREE.Mesh(
                                 new THREE.PlaneGeometry(2, 2, 0),
