@@ -147,7 +147,8 @@
 
                             backgroundTexture.wrapS = backgroundTexture.wrapT = THREE.RepeatWrapping;
                             backgroundTexture.offset.set( 0, 0 );
-                            backgroundTexture.repeat.set( WIDTH/(WIDTH/10), HEIGHT/(HEIGHT/10) );
+                            var scale = 1;
+                            backgroundTexture.repeat.set( WIDTH/backgroundTexture.image.width/scale, HEIGHT/backgroundTexture.image.height/scale );
 
                             bg = new THREE.Mesh(
                                 new THREE.PlaneGeometry(2, 2, 0),
@@ -173,21 +174,24 @@
 
 
 
-                var info = document.getElementsByClassName('info');
+                var info =  document.getElementsByClassName('info')[0];
+                info.style.fontSize = '2.1em';
                 InfoPosX = WIDTH/2-infoWidth;
                 InfoPosY = (HEIGHT/16);
-                info[0].style.left = InfoPosX+'px';
-                info[0].style.top = InfoPosY+'px';
-                var issueI = document.getElementsByClassName('issueI');;
+                info.style.left = InfoPosX+'px';
+                info.style.top = InfoPosY+'px';
+                var issueI = document.getElementsByClassName('issueI')[0];;
+                issueI.style.fontSize = '2.1em';
                 I1posX = WIDTH/4-I1Width;
                 I1posY = (HEIGHT/16)*12;
-                issueI[0].style.left = I1posX+'px';
-                issueI[0].style.top = I1posY+'px';
-                var issueII = document.getElementsByClassName('issueII');
+                issueI.style.left = I1posX+'px';
+                issueI.style.top = I1posY+'px';
+                var issueII = document.getElementsByClassName('issueII')[0];
+                issueII.style.fontSize = '2.1em';
                 I2posX = (WIDTH/4)*3 - I2Width;
                 I2posY = (HEIGHT/16)*12;
-                issueII[0].style.left = I2posX+'px';
-                issueII[0].style.top =I2posY+'px';
+                issueII.style.left = I2posX+'px';
+                issueII.style.top =I2posY+'px';
 
                 a = I2posX - WIDTH/2;
                 b = I2posY - InfoPosY;
@@ -254,31 +258,31 @@
                     if (mouseX < WIDTH/2){
 
                         switchI2 = false;
-                        console.log(switchI2)
+                        //console.log(switchI2)
                         renderer.setClearColor( 0xffffff, 1 );
                         info.color = "#0000ff";
-                        info.fontSize = '2.1em';
-                        info.left = InfoPosX-50+'px';
+                        //info.fontSize = '2.1em';
+                        //info.left = InfoPosX-50+'px';
                         issueI.color = "#0000ff";
-                        issueI.fontSize = '1.8em';
-                        issueI.left = I1posX+'px';
+                        //issueI.fontSize = '1.8em';
+                        //issueI.left = I1posX+'px';
                         issueII.color = "#0000ff";
-                        issueII.fontSize = '1.8em';
-                        issueII.left = I2posX+'px';
+                        //issueII.fontSize = '1.8em';
+                        //issueII.left = I2posX+'px';
 
                     } else {
                         
                         info.color = "#000000";
-                        info.fontSize = '5em';
-                        info.left = InfoPosX-200+'px';
+                        //info.fontSize = '5em';
+                        //info.left = InfoPosX-200+'px';
                         info.color = "#000000";
-                        info.fontSize = '5em';
+                        //info.fontSize = '5em';
                         issueI.color = "#000000";
-                        issueI.fontSize = '2.1em';
-                        issueI.left = I1posX-30+'px';
+                        //issueI.fontSize = '2.1em';
+                        //issueI.left = I1posX-30+'px';
                         issueII.color = "#000000";
-                        issueII.fontSize = '2.1em';
-                        issueII.left = I2posX-30+'px';
+                        //issueII.fontSize = '2.1em';
+                        //issueII.left = I2posX-30+'px';
                         renderer.autoClear = false;
                         renderer.clear();
                         renderer.render(bgScene, bgCam);
