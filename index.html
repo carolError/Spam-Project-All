@@ -80,15 +80,15 @@
 
 
 
-    <body  style="margin: 0; padding: 0; overflow: hidden;">
-        <div class="container">
-            <div class="info">
-                SPAM PROJECT
-            </div>
-            <a  class='issueI' id="issuelinkI" href='/nuevo/Spam_Project_I' onclick="changeLinkColor('issuelinkI')">ISSUE I</a>
-            <a  class='issueII' id="issuelinkII" href='/nuevo/Spam_Project_II' onclick="changeLinkColor('issuelinkII')">ISSUE II</a>
-            
+    <body  style="margin: 0; padding: 0; overflow: hidden; background-color:aliceblue ">
+        
+        <div class="info">
+            SPAM PROJECT
         </div>
+        <a  class='issueI' id="issuelinkI" href='/nuevo/Spam_Project_I' onclick="changeLinkColor('issuelinkI')">ISSUE I</a>
+        <a  class='issueII' id="issuelinkII" href='/nuevo/Spam_Project_II' onclick="changeLinkColor('issuelinkII')">ISSUE II</a>
+            
+       
 
 
         <script>
@@ -110,11 +110,17 @@
             var handAngle,handAngleDeg;
             var model;
             var a,b,c;
-    
+            var InfoPosX, InfoPosY;
+            var bg;
+            var bgScene, bgCam;
+            var switchI2;
+            var infoWidth = 100;
+            var I1Width = 60;
+            var I2Width = 60;
+            
+            renderer = new THREE.WebGLRenderer();
+            renderer.setClearColor( 0xffffff, 1 );
 
-            
-			
-            
             init();
             animate();
             
@@ -123,34 +129,68 @@
             
             function init(font) {
 
-             
-                var WIDTH = window.innerWidth;
-                var HEIGHT = window.innerHeight;
-                renderer = new THREE.WebGLRenderer();
+
+                
                 renderer.setSize( window.innerWidth, window.innerHeight );
                 document.body.appendChild( renderer.domElement );
 
-                renderer.setClearColor( 0xffffff, 1 );
+                var texLoader = new THREE.TextureLoader();
+
+                switchI2 = true;
+                
+                if (switchI2){
+                    texLoader.load(
+                        // resource URL
+                        'data/new.png',
+                        // Function when resource is loaded
+                        function ( backgroundTexture ) {
+
+                            backgroundTexture.wrapS = backgroundTexture.wrapT = THREE.RepeatWrapping;
+                            backgroundTexture.offset.set( 0, 0 );
+                            backgroundTexture.repeat.set( 20, 10 );
+
+                            bg = new THREE.Mesh(
+                                new THREE.PlaneGeometry(2, 2, 0),
+                                new THREE.MeshBasicMaterial({map: backgroundTexture})
+                            );
+
+                            bg.material.depthTest = false;
+                            bg.material.depthWrite = false;
+
+                            bgScene = new THREE.Scene();
+                            bgCam = new THREE.Camera();
+                            bgScene.add(bgCam);
+                            bgScene.add(bg);
+                        
+                        },
+
+                    );
+                } 
+                
+
+
+                
+
+
 
                 var info = document.getElementsByClassName('info');
-                InfoPosX = WIDTH/2-50;
-                InfoPosY = (HEIGHT/16)*2;
+                InfoPosX = WIDTH/2-infoWidth;
+                InfoPosY = (HEIGHT/16);
                 info[0].style.left = InfoPosX+'px';
                 info[0].style.top = InfoPosY+'px';
-                var issueI = document.getElementsByClassName('issueI');
-                I1posX = WIDTH/4-30;
+                var issueI = document.getElementsByClassName('issueI');;
+                I1posX = WIDTH/4-I1Width;
                 I1posY = (HEIGHT/16)*12;
                 issueI[0].style.left = I1posX+'px';
                 issueI[0].style.top = I1posY+'px';
                 var issueII = document.getElementsByClassName('issueII');
-                I2posX = (WIDTH/4)*3-30;
+                I2posX = (WIDTH/4)*3 - I2Width;
                 I2posY = (HEIGHT/16)*12;
                 issueII[0].style.left = I2posX+'px';
                 issueII[0].style.top =I2posY+'px';
 
                 a = I2posX - WIDTH/2;
                 b = I2posY - InfoPosY;
-                console.log (a,b);
                 c = Math.sqrt(a*a+b*b);
 
                 scene = new THREE.Scene();
@@ -192,7 +232,7 @@
  
             }
 
-            function map(val, minin, maxin, minout, maxout){
+            function mapVal(val, minin, maxin, minout, maxout){
                 val = Math.max(val, minin);
                 val = Math.min(val, maxin);
                 return (val - minin) * ((maxout - minout) / (maxin - minin)) + minout;
@@ -201,16 +241,62 @@
             function animate() {
                 requestAnimationFrame( animate );
                 
+                renderer.autoClear = true;
+                
                 if (model){
                     angle = Math.acos( b / c ) * 0.7;
-                    handAngle = map(mouseX, I1posX, I2posX, -angle*1.2, angle);
+                    handAngle = mapVal(mouseX, I1posX, I2posX, -angle*1.2, angle);
 
                     model.rotation.y = model.rotation.y * 0.9 + (handAngle + THREE.Math.degToRad(180)) * 0.1;
+                    var info = document.getElementsByClassName('info')[0].style;
+                    var issueI = document.getElementsByClassName('issueI')[0].style;
+                    var issueII = document.getElementsByClassName('issueII')[0].style;
+                    if (mouseX < WIDTH/2){
+
+                        switchI2 = false;
+                        console.log(switchI2)
+                        renderer.setClearColor( 0xffffff, 1 );
+                        info.color = "#0000ff";
+                        info.fontSize = '2.1em';
+                        info.left = InfoPosX-50+'px';
+                        issueI.color = "#0000ff";
+                        issueI.fontSize = '1.8em';
+                        issueI.left = I1posX+'px';
+                        issueII.color = "#0000ff";
+                        issueII.fontSize = '1.8em';
+                        issueII.left = I2posX+'px';
+
+                    } else {
+                        
+                        info.color = "#000000";
+                        info.fontSize = '5em';
+                        info.left = InfoPosX-200+'px';
+                        info.color = "#000000";
+                        info.fontSize = '5em';
+                        issueI.color = "#000000";
+                        issueI.fontSize = '2.1em';
+                        issueI.left = I1posX-30+'px';
+                        issueII.color = "#000000";
+                        issueII.fontSize = '2.1em';
+                        issueII.left = I2posX-30+'px';
+                        renderer.autoClear = false;
+                        renderer.clear();
+                        renderer.render(bgScene, bgCam);
+                        
+                    }
+  
                 }
+
+               
+
+                
+                
                
                 //console.log(mouseX);
                 //console.log(handAngle);
+               
                 renderer.render(scene, camera);
+                
                 //controls.update();
                 
         
